@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TeamTrack - Project Management</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Login Screen -->
+    <div id="loginScreen" class="screen">
+        <div class="login-container">
+            <h1><i class="fas fa-users"></i> TeamTrack</h1>
+            <p class="subtitle">Simple Project Management Tool</p>
+            
+            <div class="login-form">
+                <div class="form-group">
+                    <label for="userName">Your Name</label>
+                    <input type="text" id="userName" placeholder="Enter your name">
+                </div>
+                
+                <div class="form-group">
+                    <label for="userRole">Select Role</label>
+                    <select id="userRole">
+                        <option value="client">Client (Full Access)</option>
+                        <option value="member">Team Member (Limited)</option>
+                        <option value="guest">Guest (Read Only)</option>
+                    </select>
+                </div>
+                
+                <button id="loginBtn" class="btn-primary">
+                    <i class="fas fa-sign-in-alt"></i> Enter Dashboard
+                </button>
+                
+                <p class="tip">
+                    <i class="fas fa-lightbulb"></i> 
+                    Tip: Login as <b>Client</b> first to create teams and projects
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main App -->
+    <div id="appScreen" class="screen hidden">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="header-left">
+                <button id="menuToggle" class="icon-btn">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <h2><i class="fas fa-project-diagram"></i> TeamTrack</h2>
+                <span id="roleBadge" class="role-badge">Guest</span>
+            </div>
+            
+            <div class="header-right">
+                <span id="userInfo">Welcome, User</span>
+                <button id="logoutBtn" class="btn-secondary">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </div>
+        </header>
+
+        <!-- Sidebar -->
+        <aside id="sidebar" class="sidebar">
+            <nav class="sidebar-nav">
+                <a href="#" class="nav-link active" data-view="dashboard">
+                    <i class="fas fa-home"></i> Dashboard
+                </a>
+                <a href="#" class="nav-link" data-view="teams">
+                    <i class="fas fa-users"></i> Teams
+                </a>
+                <a href="#" class="nav-link" data-view="projects">
+                    <i class="fas fa-folder"></i> Projects
+                </a>
+                <a href="#" class="nav-link" data-view="tasks">
+                    <i class="fas fa-tasks"></i> Tasks
+                </a>
+                <a href="#" class="nav-link" data-view="profile">
+                    <i class="fas fa-user"></i> Profile
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Dashboard View -->
+            <div id="dashboardView" class="view active">
+                <h2><i class="fas fa-tachometer-alt"></i> Dashboard</h2>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <h3>Teams</h3>
+                        <p id="statTeams">0</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Projects</h3>
+                        <p id="statProjects">0</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Tasks</h3>
+                        <p id="statTasks">0</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>My Tasks</h3>
+                        <p id="statMyTasks">0</p>
+                    </div>
+                </div>
+                
+                <div class="action-buttons">
+                    <button id="createTeamBtn" class="btn-primary">
+                        <i class="fas fa-plus"></i> Create Team
+                    </button>
+                    <button id="createProjectBtn" class="btn-primary">
+                        <i class="fas fa-plus"></i> New Project
+                    </button>
+                    <button id="createTaskBtn" class="btn-primary">
+                        <i class="fas fa-plus"></i> New Task
+                    </button>
+                </div>
+            </div>
+
+            <!-- Teams View -->
+            <div id="teamsView" class="view">
+                <div class="view-header">
+                    <h2><i class="fas fa-users"></i> Teams</h2>
+                    <button id="addTeamBtn" class="btn-primary">
+                        <i class="fas fa-plus"></i> Create Team
+                    </button>
+                </div>
+                <div id="teamsList" class="cards-container">
+                    <p class="empty-state">No teams created yet.</p>
+                </div>
+            </div>
+
+            <!-- Projects View -->
+            <div id="projectsView" class="view">
+                <div class="view-header">
+                    <h2><i class="fas fa-folder"></i> Projects</h2>
+                    <button id="addProjectBtn" class="btn-primary">
+                        <i class="fas fa-plus"></i> New Project
+                    </button>
+                </div>
+                <div id="projectsList" class="cards-container">
+                    <p class="empty-state">No projects created yet.</p>
+                </div>
+            </div>
+
+            <!-- Tasks View -->
+            <div id="tasksView" class="view">
+                <div class="view-header">
+                    <h2><i class="fas fa-tasks"></i> Tasks</h2>
+                    <button id="addTaskBtn" class="btn-primary">
+                        <i class="fas fa-plus"></i> New Task
+                    </button>
+                </div>
+                <div id="tasksList" class="cards-container">
+                    <p class="empty-state">No tasks created yet.</p>
+                </div>
+            </div>
+
+            <!-- Profile View -->
+            <div id="profileView" class="view">
+                <h2><i class="fas fa-user"></i> Profile</h2>
+                <div class="profile-card">
+                    <div class="form-group">
+                        <label for="profileName">Name</label>
+                        <input type="text" id="profileName" class="form-input">
+                    </div>
+                    <div class="form-group">
+                        <label for="profileRole">Role</label>
+                        <select id="profileRole" class="form-input">
+                            <option value="client">Client</option>
+                            <option value="member">Team Member</option>
+                            <option value="guest">Guest</option>
+                        </select>
+                    </div>
+                    <button id="saveProfileBtn" class="btn-primary">
+                        <i class="fas fa-save"></i> Save Changes
+                    </button>
+                </div>
+            </div>
+        </main>
+
+        <!-- Modals -->
+        <!-- Team Modal -->
+        <div id="teamModal" class="modal hidden">
+            <div class="modal-content">
+                <h3>Create Team</h3>
+                <form id="teamForm">
+                    <div class="form-group">
+                        <label for="teamName">Team Name</label>
+                        <input type="text" id="teamName" class="form-input" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="teamMembers">Members (comma separated)</label>
+                        <input type="text" id="teamMembers" class="form-input" 
+                               placeholder="e.g., John, Sarah, Mike">
+                    </div>
+                    <div class="modal-buttons">
+                        <button type="button" class="btn-secondary" id="cancelTeamBtn">Cancel</button>
+                        <button type="submit" class="btn-primary">Save Team</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Project Modal -->
+        <div id="projectModal" class="modal hidden">
+            <div class="modal-content">
+                <h3>Create Project</h3>
+                <form id="projectForm">
+                    <div class="form-group">
+                        <label for="projectName">Project Name</label>
+                        <input type="text" id="projectName" class="form-input" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="projectTeam">Team</label>
+                        <select id="projectTeam" class="form-input" required>
+                            <option value="">Select Team</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="projectDescription">Description</label>
+                        <textarea id="projectDescription" class="form-input" rows="3"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="projectStatus">Status</label>
+                        <select id="projectStatus" class="form-input">
+                            <option value="Planned">Planned</option>
+                            <option value="In Progress">In Progress</option>
+                            <option value="Blocked">Blocked</option>
+                            <option value="Done">Done</option>
+                        </select>
+                    </div>
+                    <div class="modal-buttons">
+                        <button type="button" class="btn-secondary" id="cancelProjectBtn">Cancel</button>
+                        <button type="submit" class="btn-primary">Save Project</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Task Modal -->
+        <div id="taskModal" class="modal hidden">
+            <div class="modal-content">
+                <h3>Create Task</h3>
+                <form id="taskForm">
+                    <div class="form-group">
+                        <label for="taskTitle">Task Title</label>
+                        <input type="text" id="taskTitle" class="form-input" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="taskProject">Project</label>
+                        <select id="taskProject" class="form-input" required>
+                            <option value="">Select Project</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="taskAssignee">Assignee</label>
+                        <select id="taskAssignee" class="form-input">
+                            <option value="">Unassigned</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="taskPriority">Priority</label>
+                        <select id="taskPriority" class="form-input">
+                            <option value="Low">Low</option>
+                            <option value="Medium" selected>Medium</option>
+                            <option value="High">High</option>
+                            <option value="Critical">Critical</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="taskStatus">Status</label>
+                        <select id="taskStatus" class="form-input">
+                            <option value="Open" selected>Open</option>
+                            <option value="In Progress">In Progress</option>
+                            <option value="Blocked">Blocked</option>
+                            <option value="Done">Done</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="taskDescription">Description</label>
+                        <textarea id="taskDescription" class="form-input" rows="3"></textarea>
+                    </div>
+                    <div class="modal-buttons">
+                        <button type="button" class="btn-secondary" id="cancelTaskBtn">Cancel</button>
+                        <button type="submit" class="btn-primary">Save Task</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Loading Overlay -->
+        <div id="loadingOverlay" class="loading-overlay hidden">
+            <div class="loading-spinner"></div>
+            <p>Loading...</p>
+        </div>
+    </div>
+
+    <!-- Load scripts -->
+    <script src="mock-backend.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

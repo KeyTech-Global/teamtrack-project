@@ -49,6 +49,16 @@ It helps teams manage projects, tasks, and roles efficiently in a simple and res
 
 ---
 
+## 📄 License
+
+This project is open-source and available for learning and educational purposes.
+
+---
+
+⭐ If you like this project, consider giving it a star on GitHub!
+
+---
+
 ## 📂 Project Structure
 
 ```text
@@ -57,13 +67,3 @@ teamtrack-github/
 ├── style.css         # Application styles
 ├── app.js            # Core application logic
 └── mock-backend.js   # Simulated backend (for GitHub Pages)
-
----
-
-## 📄 License
-
-This project is open-source and available for learning and educational purposes.
-
----
-
-⭐ If you like this project, consider giving it a star on GitHub!
